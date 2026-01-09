@@ -44,8 +44,8 @@ hi this is elmastats you can compare your times to other mans and stuff<br/><br/
               $deprovments = array();
 
               for ($x = 0;$x < 54;$x++) {
-                $oldtt += ($cTimes[$x+1][1] == 0 ? 60000 : $cTimes[$x+1][1]);
-                $newtt += ($nTimes[$x+1][1] == 0 ? 60000 : $nTimes[$x+1][1]);
+                $oldtt += (!$cTimes[$x+1][1] ? 60000 : $cTimes[$x+1][1]);
+                $newtt += (!$nTimes[$x+1][1] ? 60000 : $nTimes[$x+1][1]);
                 $oldTarget = target($cTimes[$x+1][1], $x+1);
                 $newTarget = target($nTimes[$x+1][1], $x+1);
 

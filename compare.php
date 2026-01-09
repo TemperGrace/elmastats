@@ -25,6 +25,7 @@
     }
     echo("<optgroup label=\"Players\">");
     foreach ($users as $cItem) {
+      if ($cItem["nick"] == '!.gitignore' || $cItem["nick"] == '*') { continue; }
       if ($cItem["nick"] != "") {
         if ($cItem["nick"] == $dudes[$x]) {
           echo("<option value=\"" . $cItem["nick"] . "\" selected=\"selected\">" . $cItem["nick"] . "</option>");
@@ -74,7 +75,7 @@
       echo("<tr><td class=\"times\">" . internal($x+1, true, true, true) . "</td>");
       $trman = 0;
       $trtajm = $utimes[0][$x+1][1];
-      if ($trtajm == 0) $trtajm = 60000;
+      if (!$trtajm) $trtajm = 60000;
       for ($y = 1;$y < $c;$y++) {
         if ($utimes[$y][$x+1][1] > 0) {
           if ($utimes[$y][$x+1][1] < $trtajm) {
@@ -93,7 +94,7 @@
         $bulle = ""; $bulle2 = "";
         if ($trman == $y) { $bulle = "<span style=\"color: #00AA00\">"; $bulle2 = "</span>"; }
         if ($trtajm > $utimes[$y][$x+1][1]) { $wry = "-"; } else { $wry = "+"; }
-        $diff2 = abs($utimes[$y][$x+1][1]-$trtajm);
+        $diff2 = abs((int)$utimes[$y][$x+1][1]-(int)$trtajm);
         $str = $wry . formatElmaTime($diff2) . " to " . $dudes[$trman] . "'" . (endsWith($dudes[$trman], "s", false) || endsWith($dudes[$trman], "z", false) ? "" : "s") . " time";
         if ($y == $trman || $trman == -1) $str = "";
         if ($utimes[$y][$x+1][1] == 0) $str = "";
@@ -120,7 +121,7 @@
     for ($y = 0;$y < $c;$y++) {
       $tt = 0;
       for ($x = 0;$x < 54;$x++) {
-        if ($utimes[$y][$x+1][1] == 0) {
+        if (!$utimes[$y][$x+1][1]) {
           $tt += 60000;
         } else {
           $tt += $utimes[$y][$x+1][1];

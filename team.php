@@ -46,7 +46,7 @@
       echo("<tr><td class=\"times\">" . internal($x+1, true) . "</td>");
       $trman = 0;
       $trtajm = $utimes[0][$x+1][1];
-      if ($trtajm == 0) $trtajm = 60000;
+      if (!$trtajm) $trtajm = 60000;
       for ($y = 1;$y < $c;$y++) {
         if ($utimes[$y][$x+1][1] > 0) {
           if ($utimes[$y][$x+1][1] < $trtajm) {
@@ -76,7 +76,7 @@
         $bulle = ""; $bulle2 = "";
         if ($trman == $y) { $bulle = "<span style=\"font-weight: bold\">"; $bulle2 = "</span>"; }
         if ($trtajm > $utimes[$y][$x+1][1]) { $wry = "-"; } else { $wry = "+"; }
-        $diff2 = abs($utimes[$y][$x+1][1]-$trtajm);
+        $diff2 = abs((int)$utimes[$y][$x+1][1]-(int)$trtajm);
         $str = $wry . formatElmaTime($diff2) . " to " . $dudes[$trman] . "'s time";
         if ($y == $trman || $trman == -1) $str = "";
 
@@ -94,7 +94,7 @@
         if ($utimes[$y][$x+1][1] == 0) {
           $tt += 60000;
         } else {
-          $tt += $utimes[$y][$x+1][1];
+          $tt += (int)$utimes[$y][$x+1][1];
         }
       }
       $tts[$y] = $tt;

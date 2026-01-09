@@ -80,20 +80,22 @@
         echo("<td class=\"times\"></td>"); // Spacer
         $avg = 0;
         for ($y = 0;$y < 10;$y++) {
-          $avg += ($utimes[$x+1][$y+1] == 0 ? 60000 : $utimes[$x+1][$y+1]);
+          $value = $utimes[$x+1][$y+1] ?? 0;
+          $avg += (!$value ? 60000 : (int)$value);
+          //$avg += ($utimes[$x+1][$y+1] == 0 ? 60000 : $utimes[$x+1][$y+1]);
         }
         $avgtt += $avg;
         $avg = round($avg/10);
-        $AvgDiff = $avg - $utimes[$x+1][1];
+        $AvgDiff = $avg - (int)$utimes[$x+1][1];
         echo("<td class=\"times\"><center>" . sttime($cItem["nick"], $x+1, $avg , true, false, target($avg, $x+1)) . "</center></td>");
         echo("<td class=\"times\"><center>" . ($AvgDiff > 0 ? "+" . formatElmaTime($AvgDiff) : "-") . "</center></td>");
         echo("<td class=\"times\"></td>"); // Spacer
 
-        $tt += ($utimes[$x+1][1] == 0 ? 60000 : $utimes[$x+1][1]);
-        $ttIfBeatTargets += ($utimes[$x+1][1] == 0 ? 60000 : $utimes[$x+1][1]);
+        $tt += (int)($utimes[$x+1][1] == 0 ? 60000 : $utimes[$x+1][1]);
+        $ttIfBeatTargets += (int)($utimes[$x+1][1] == 0 ? 60000 : $utimes[$x+1][1]);
 
         if($t > 0) {
-          $ttChangeIfBeatTarget = abs($targets[$x+1][$t-1]-$utimes[$x+1][1]);
+          $ttChangeIfBeatTarget = abs((int)$targets[$x+1][$t-1]-(int)$utimes[$x+1][1]);
           $ttIfBeatTargets -= $ttChangeIfBeatTarget;
         }
 
@@ -148,7 +150,7 @@
           /*} else {
             echo("<td class=\"times\"><center>" . formatElmaTime($utimes[$x+1][$y+1], true) . "</center></td>");
           }*/
-          $avg += ($utimes[$x+1][$y+1] == 0 ? 60000 : $utimes[$x+1][$y+1]);
+          $avg += (!$utimes[$x+1][$y+1] ? 60000 : $utimes[$x+1][$y+1]);
         }
 
         $avg = round($avg/10);

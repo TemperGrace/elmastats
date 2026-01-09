@@ -64,18 +64,20 @@ anyway heres some lists<br/><br/><br/>
   $lines = file("newttz");
   echo("<table>");
   echo("<tr><th width=\"160px\">Kuski</th><th width=\"32px\">TT</th><th>When</th></tr>");
-  $xs = count($lines);
-  if ($xs > 30) $xs = 30;
-  $y=0;
-  for ($x = 0;$y < $xs;$x++) {
-    $data = parseLine(ld($lines[count($lines)-1-$x]));
-    if(man($data["nick"])!=$data["nick"]){
-      echo("<tr>");
-      echo("<td>" . man($data["nick"]) . "</td>");
-      echo("<td>" . $data["tt"] . "</td>");
-      echo("<td>" . date("d/m/y", ttime($data["time"])) . "</td>");
-      echo("</tr>");
-      $y++;
+  if ($lines) {
+    $xs = count($lines);
+    if ($xs > 30) $xs = 30;
+    $y=0;
+    for ($x = 0;$y < $xs;$x++) {
+      $data = parseLine(ld($lines[count($lines)-1-$x]));
+      if(man($data["nick"])!=$data["nick"]){
+        echo("<tr>");
+        echo("<td>" . man($data["nick"]) . "</td>");
+        echo("<td>" . $data["tt"] . "</td>");
+        echo("<td>" . date("d/m/y", ttime($data["time"])) . "</td>");
+        echo("</tr>");
+        $y++;
+      }
     }
   }
   echo("</table>");

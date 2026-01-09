@@ -25,9 +25,9 @@
     $tt = 0;
     for ($x = 0;$x < 54;$x++) {
       $str .= "\r\nLevel " . ($x+1) . ", " . $intnames[$x+1] . ":\r\n";
-      $utimes[$x+1][1] == 0 ? $tt += 60000 : $tt += $utimes[$x+1][1];
+      !$utimes[$x+1][1] ? $tt += 60000 : $tt += $utimes[$x+1][1];
       for ($y = 0;$y < 10;$y++) {
-        if ($utimes[$x+1][$y+1] == 0) break;
+        if (!$utimes[$x+1][$y+1]) break;
         $str .= "    " . formatElmaTime($utimes[$x+1][$y+1]) . "    " . $_GET["u"] . "\r\n";
       }
     }

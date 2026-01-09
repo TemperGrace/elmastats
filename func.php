@@ -359,7 +359,7 @@
 
   function target($time, $int) {
     global $targets;
-    if ($time == 0) return 8;
+    if (!$time) return 8;
     //if ($time <= $wrs[$int]) return 0;
     for ($x = 0;$x < 8;$x++) {
       if ($time <= $targets[$int][$x]) return $x;
@@ -455,7 +455,11 @@
   }
 
   function cmpa($a, $b) {
-    $s = strcmp(strtolower($a["nick"]), strtolower($b["nick"]));
+    if (is_array($a) && is_array($b) && isset($a["nick"], $b["nick"])) {
+      $s = strcmp(strtolower($a["nick"]), strtolower($b["nick"]));
+    } else {
+      $s = 0;
+    }
     if ($s == 0 && strlen($a) > 1 && strlen($b) > 1) return cmpa(substr($a, 1), substr($b, 1));
     return ($s == 0 ? 0 : ($s < 0 ? -1 : 1));
   }
@@ -535,9 +539,9 @@
   function ttime($tajm) {
     global $timezone, $users;
     if (isset($_SESSION["nick"])) {
-      return $tajm+($timezone*3600)+($users[$_SESSION["nick"]]["timezone"]*3600);
+      return (int)$tajm+($timezone*3600)+($users[$_SESSION["nick"]]["timezone"]*3600);
     } else {
-      return $tajm+($timezone*3600);
+      return (int)$tajm+($timezone*3600);
     }
   }
 
@@ -546,13 +550,14 @@
     if ($i == 0 && $emptyif0) {
       return "";
     } else {
-      $i = round($i);
+      $i = round((int)$i);
       $hrs = floor($i/360000);
       $min = floor($i/6000);
       $sec = floor($i/100);
       $i -= ($sec*100);
       $sec -= ($min*60);
       $min -= ($hrs*60);
+      $hstr = "";
       if ($hrs > 0) $hstr = $hrs . ":";
 
       $r = "m:s:i";

@@ -21,7 +21,7 @@
       $cTime = 0;
       for ($z = 0;$z < 10;$z++) {
         $xTime = $utimes[$y][$x+1][$z+1];
-        if ($xTime == 0) {
+        if (!$xTime) {
           $cTime += 60000;
         } else {
           $cTime += $xTime;

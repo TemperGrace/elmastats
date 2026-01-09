@@ -20,7 +20,7 @@
     for ($y = 0;$y < $c;$y++) {
       $cItem["nick"] = $unicks[$y];
       $cItem["time"] = $utimes[$y][$x+1][1];
-      if ($cItem["time"] == 0) $cItem["time"] = 60000;
+      if (!$cItem["time"]) $cItem["time"] = 60000;
       if ($cItem["time"] < 60000) $top[] = $cItem;
     }
     usort($top, "cmp");
@@ -35,7 +35,7 @@
         echo("<td class=\"times\" width=\"20px\">" . ($y+1) . ".</td>");
         echo("<td class=\"times\" width=\"180px\">" . man($top[$y]["nick"]) . "</td>");
         $str = "";
-        if ($y > 0) $str = " title=\"+" . formatElmaTime($top[$y]["time"]-$top[0]["time"]) . " to " . $top[0]["nick"] . "'s time\"";
+        if ($y > 0) $str = " title=\"+" . formatElmaTime((int)$top[$y]["time"]-(int)$top[0]["time"]) . " to " . $top[0]["nick"] . "'s time\"";
         echo("<td class=\"times\" width=\"81px\"" . $str . "><center>" . sttime($top[$y]["nick"], $x+1, $top[$y]["time"], true, false, target($top[$y]["time"], $x+1)) . "</center></td>");
         echo("</tr>\n");
       }

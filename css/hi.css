@@ -65,6 +65,13 @@ a.header {
   width: 984px;
   text-align: center;
 }
+#domain {
+  margin: 8px 0px 0px 0px;
+  padding: 0px 10px 0px 10px;
+  width: 984px;
+  text-align: center;
+  color: #00FF00;
+}
 
 #left {
   margin: 8px 0px 0px 0px;

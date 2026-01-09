@@ -3,10 +3,10 @@
   //die();
 
   session_start();
-  error_reporting(0);
+  error_reporting(E_ERROR);
 
   if ($_GET["logout"] == 1) {
-    session_unset("nick");
+    session_unset();
     session_destroy();
   }
 
@@ -220,6 +220,20 @@
   <a href="http://mopolauta.moposite.com/" target="_blank">mopolauta</a> /
   <a href="https://multiwr.elma.online/" target="_blank">Internal multi wr</a>
 </div>
+<?php
+  // sshoyer.net removal
+  $host = $_SERVER['HTTP_HOST'];
+  $now = new DateTime();
+  $cutoff = new DateTime('2025-11-28');
+  $isAllowedDomain = (
+    $host === 'sshoyer.net' ||
+    preg_match('/\.sshoyer\.net$/', $host) ||
+    $host === 'localhost:8080'
+  );
+  if ($isAllowedDomain && $now < $cutoff) {
+    echo("<div id='domain'>sshoyer.net domain will be removed late November 2025, please use <a href='https://stats.elma.online'>stats.elma.online</a></div>");
+  }
+?>
 <div id="left">
 <?php if (isset($_SESSION["nick"])) { ?>
   <div class="menuheader">

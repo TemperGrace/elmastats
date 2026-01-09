@@ -13,7 +13,7 @@
     $tt = 0;
     for ($x = 0;$x < 54;$x++) {
       $cTime = $utimes[$x+1][1];
-      if ($cTime == 0) $cTime = 60000;
+      if (!$cTime) $cTime = 60000;
       $tt += $cTime;
     }
     $str = formatElmaTime($tt);

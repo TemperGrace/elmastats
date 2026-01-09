@@ -31,16 +31,16 @@
 
       //TT calculations
       $cTime = $utimes[$y][$x+1][1];
-      if ($cTime == 0) $cTime = 60000;
-      $ctt += $cTime;
+      if (!$cTime) $cTime = 60000;
+      $ctt += (int)$cTime;
 
       //Average calculations (and # of times handling)
       for ($z = 0;$z < 10;$z++) {
         $xTime = $utimes[$y][$x+1][$z+1];
-        if ($xTime == 0) {
+        if (!$xTime) {
           $AvgTime += 60000;
         } else {
-          $AvgTime += $xTime;
+          $AvgTime += (int)$xTime;
           $finished++;
         }
       }

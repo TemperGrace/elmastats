@@ -9,6 +9,7 @@
     echo("<tr><th width=\"200px\">Kuski</th><th>Registered</th></tr>");
   }
   foreach ($users as $cItem) {
+    if ($cItem["nick"] == '!.gitignore' || $cItem["nick"] == '*') { continue; }
     if ($cItem["nick"] != "") {
       $f = true;
       if ($_GET["name"] != "") {
